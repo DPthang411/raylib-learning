@@ -9,10 +9,10 @@ project "MainApp"
     targetdir "bin/%{cfg.buildcfg}"    -- Output directory
     objdir "bin-int/%{cfg.buildcfg}"  -- Intermediate directory
 
-    files { "../src/main.cpp" } -- Path to your source and header files
+    files { "src/main.cpp" } -- Path to your source and header files
 
-    includedirs { "../library/raylib/include/**" } -- Path to raylib headers
-    libdirs { "../library/raylib/lib/**" }        -- Path to raylib library files
+    includedirs { "library/raylib/include" } -- Path to raylib headers
+    libdirs { "library/raylib/lib" }        -- Path to raylib library files
 
     links { "raylib" } -- Link raylib
     filter "configurations:Debug"
