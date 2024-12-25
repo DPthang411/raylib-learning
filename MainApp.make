@@ -28,7 +28,7 @@ ifeq ($(origin AR), default)
   AR = ar
 endif
 RESCOMP = windres
-INCLUDES +=
+INCLUDES += -Ilibrary/raylib/include
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -49,7 +49,7 @@ OBJDIR = bin-int/Debug
 DEFINES += -DDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64
+ALL_LDFLAGS += $(LDFLAGS) -Llibrary/raylib/lib -L/usr/lib64 -m64
 
 else ifeq ($(config),release)
 TARGETDIR = bin/Release
@@ -58,7 +58,7 @@ OBJDIR = bin-int/Release
 DEFINES += -DNDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c++17
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -s
+ALL_LDFLAGS += $(LDFLAGS) -Llibrary/raylib/lib -L/usr/lib64 -m64 -s
 
 endif
 
@@ -137,7 +137,7 @@ endif
 # File Rules
 # #############################################
 
-$(OBJDIR)/main.o: ../src/main.cpp
+$(OBJDIR)/main.o: src/main.cpp
 	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

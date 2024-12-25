@@ -1,0 +1,39 @@
+name: premake5-windows
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/**'
+      - 'library/**'
+      - '.github/workflows/premake5-windows.yml'
+      - 'premake5.lua'
+
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'library/**'
+      - '.github/workflows/premake5-windows.yml'
+      - 'premake5.lua'
+
+jobs:
+  windows:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: install premake5
+      uses: Jarod42/install-premake5@v1
+      with:
+        ref: ''
+
+    - name: run premake5
+      run: premake5.exe gmake2
+
+    - name: build
+      run: |
+        make config=release
